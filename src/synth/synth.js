@@ -6,7 +6,6 @@ import * as utils from "../utils";
 export const play = seed => {
   Tone.context.close();
   Tone.context = new AudioContext();
-
   Math.seedrandom(seed);
 
   const reverb = new Tone.Freeverb().toMaster();

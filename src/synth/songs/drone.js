@@ -61,11 +61,15 @@ export const play = () => {
     let newFreq;
     if (randomOsc.on) {
       const transposeAmount = utils.randomFromArray([5, 7]);
-      newFreq = Tone.Frequency(randomOsc.frequency.value).transpose(transposeAmount);
+      newFreq = Tone.Frequency(randomOsc.frequency.value).transpose(
+        transposeAmount
+      );
       randomOsc.frequency.exponentialRampToValueAtTime(newFreq, "+0:2:0");
       randomOsc.transposeAmount = transposeAmount;
     } else {
-      newFreq = Tone.Frequency(randomOsc.frequency.value).transpose(randomOsc.transposeAmount * -1);
+      newFreq = Tone.Frequency(randomOsc.frequency.value).transpose(
+        randomOsc.transposeAmount * -1
+      );
       randomOsc.frequency.exponentialRampToValueAtTime(newFreq, "+0:2:0");
     }
     randomOsc.on = !randomOsc.on;

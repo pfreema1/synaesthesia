@@ -1,6 +1,15 @@
 import Tone from "tone";
+import { changeBgColor } from "../visuals/visuals.js";
 
-export const addChordProgression = (startTime, chordProgression, instrument, noteLength, interval, shouldLoop) => {
+export const addChordProgression = (
+  startTime,
+  chordProgression,
+  instrument,
+  noteLength,
+  interval,
+  shouldLoop,
+  bgWrapperEl
+) => {
   const loop = new Tone.Loop(function(time) {
     //Take first chord
     const currentChord = chordProgression.shift();
@@ -8,13 +17,25 @@ export const addChordProgression = (startTime, chordProgression, instrument, not
     chordProgression.push(currentChord);
     //play it
     instrument.triggerAttackRelease(currentChord, noteLength, time);
+
+    Tone.Draw.schedule(() => {
+      changeBgColor(bgWrapperEl);
+    }, time);
   }, interval);
 
   loop.loop = shouldLoop;
   loop.start(startTime);
 };
 
-export const addDrums = (startTime, note, instrument, pattern, probability, shouldLoop, mutationFunction) => {
+export const addDrums = (
+  startTime,
+  note,
+  instrument,
+  pattern,
+  probability,
+  shouldLoop,
+  mutationFunction
+) => {
   const sequencer = new Tone.Sequence(
     function(time, hit) {
       if (hit === 1) {
@@ -31,7 +52,15 @@ export const addDrums = (startTime, note, instrument, pattern, probability, shou
   return new Part(sequencer, mutationFunction);
 };
 
-export const addSoloPart = (startTime, notes, instrument, noteLength, pattern, probability, shouldLoop) => {
+export const addSoloPart = (
+  startTime,
+  notes,
+  instrument,
+  noteLength,
+  pattern,
+  probability,
+  shouldLoop
+) => {
   const sequencer = new Tone.Sequence(
     function(time, hit) {
       if (hit === 1) {
@@ -49,7 +78,15 @@ export const addSoloPart = (startTime, notes, instrument, noteLength, pattern, p
   sequencer.start(startTime);
 };
 
-export const addRepeatingSoloPart = (startTime, notes, instrument, noteLength, patterns, repeatTimes, shouldLoop) => {
+export const addRepeatingSoloPart = (
+  startTime,
+  notes,
+  instrument,
+  noteLength,
+  patterns,
+  repeatTimes,
+  shouldLoop
+) => {
   const expandedSequence = [];
   for (const section of notes) {
     for (let ri = 0; ri < repeatTimes; ri++) {
