@@ -21,24 +21,35 @@ class Scene extends Component {
     renderer.setSize(CANVAS_WIDTH, CANVAS_HEIGHT);
 
     //camera
-    const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
+    const camera = new THREE.PerspectiveCamera(35, width / height, 0.1, 3000);
+    camera.position.z = 4;
 
     //scene
     const scene = new THREE.Scene();
 
-    const geometry = new THREE.BoxGeometry(1, 1, 1);
-    const material = new THREE.MeshBasicMaterial({ color: "yellow" });
+    //light
+    const light = new THREE.AmbientLight(0xffffff, 0.5);
+    scene.add(light);
+
+    const light1 = new THREE.PointLight(0xffffff, 0.5);
+    scene.add(light1);
+
+    const geometry = new THREE.BoxGeometry(100, 100, 100);
+    const material = new THREE.MeshLambertMaterial({ color: "yellow" });
     const cube1 = new THREE.Mesh(geometry, material);
-
-    const geometryAlt = new THREE.BoxGeometry(2, 2, 2);
-    const materialAlt = new THREE.MeshBasicMaterial({ color: "blue" });
-    const cube2 = new THREE.Mesh(geometryAlt, materialAlt);
-
-    cube2.position.set(10, 0, 20);
-
-    camera.position.z = 4;
+    cube1.position.set(0, 0, -1000);
     scene.add(cube1);
+
+    const cube2 = new THREE.Mesh(geometry, material);
+    cube2.position.set(100, 200, -1000);
     scene.add(cube2);
+
+    //static cube
+    const cube3 = new THREE.Mesh(geometry, material);
+    cube3.position.set(-150, -100, -1000);
+    cube3.matrixAutoUpdate = false;
+    cube3.updateMatrix();
+    scene.add(cube3);
 
     this.scene = scene;
     this.camera = camera;
@@ -68,13 +79,11 @@ class Scene extends Component {
 
   // this function is called over and over
   animate = () => {
-    this.cube1.rotation.x += 0.01;
-    this.cube1.rotation.y += 0.005;
-    // this.cube1.position.x += 0.01;
+    this.cube1.rotation.x += 0.001;
+    this.cube1.rotation.y += 0.0005;
 
-    this.cube2.rotation.x += 0.3;
-    this.cube2.rotation.y += 0.02;
-    this.cube2.position.set(10, 0, 20);
+    this.cube2.rotation.x += 0.002;
+    this.cube2.rotation.y += 0.0003;
 
     this.renderScene();
     this.frameId = window.requestAnimationFrame(this.animate);
