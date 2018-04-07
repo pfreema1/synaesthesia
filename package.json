@@ -4,6 +4,7 @@
   "private": true,
   "homepage": "https://wheelibin.github.io/synaesthesia/",
   "dependencies": {
+    "animejs": "^2.2.0",
     "lodash": "^4.17.5",
     "react": "^16.2.0",
     "react-anime": "^2.1.0",
@@ -13,6 +14,7 @@
     "redux": "^3.7.2",
     "redux-thunk": "^2.2.0",
     "snapsvg-cjs": "^0.0.6",
+    "three": "^0.91.0",
     "tone": "^0.11.11",
     "two": "^1.0.1"
   },

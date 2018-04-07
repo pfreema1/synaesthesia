@@ -4,7 +4,7 @@ import "./App.css";
 import { version } from "../../../../package.json";
 import NowPlayingSection from "./NowPlayingSection";
 import GenerationOptions from "./GenerationOptions";
-import Anime from "react-anime";
+import Scene from "../Scene";
 
 class App extends Component {
   constructor() {
@@ -20,9 +20,8 @@ class App extends Component {
   render() {
     return (
       <div id="bgWrapperEl" className="main-wrapper">
-        <Anime>
-          <div className="circle" />
-        </Anime>
+        <div id="box1" className="box box1" />
+        <Scene />
         <div className="container text-center">
           <div className="main-panel col-md-6 offset-md-3">
             <div className="row">
